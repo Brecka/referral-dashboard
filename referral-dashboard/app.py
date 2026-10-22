@@ -40,7 +40,7 @@ with col1:
     y=alt.Y("Referrals:Q", title="Total Referrals")
 )
 
-st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, use_container_width=True)
 with col2:
     st.subheader("Referrals by Level of Care")
     level_counts = filtered_df["Level of Care"].value_counts()

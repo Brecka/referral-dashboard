@@ -33,9 +33,9 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("Referrals by Day of Week")
-chart_data = counts.rename_axis("Day").reset_index(name="Referrals")
+    chart_data = counts.rename_axis("Day").reset_index(name="Referrals")
 
-chart = alt.Chart(chart_data).mark_line(point=True).encode(
+    chart = alt.Chart(chart_data).mark_line(point=True).encode(
     x=alt.X("Day:N", sort=days, title="Day of Week"),
     y=alt.Y("Referrals:Q", title="Total Referrals")
 )

@@ -12,7 +12,7 @@ df = pd.read_excel(
 )
 
 levels = ["All"] + sorted(df["Level of Care"].dropna().unique().tolist())
-selected_level = st.selectbox("Select Level of Care", levels)
+selected_level = st.sidebar.selectbox("Select Level of Care", levels)
 
 if selected_level == "All":
     filtered_df = df
@@ -32,7 +32,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("Referrals by Day of Week")
-    st.line_chart(counts)
+st.line_chart(counts, x_label="Day of Week", sort=False)
 
 with col2:
     st.subheader("Referrals by Level of Care")

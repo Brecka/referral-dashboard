@@ -32,7 +32,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("Referrals by Day of Week")
-st.line_chart(counts, x_label="Day of Week", sort=False)
+st.line_chart(counts, x_label="Day of Week")
 
 with col2:
     st.subheader("Referrals by Level of Care")

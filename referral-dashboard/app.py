@@ -41,8 +41,30 @@ with col1:
 )
 
     st.altair_chart(chart, use_container_width=True)
+
 with col2:
     st.subheader("Referrals by Level of Care")
-    level_counts = filtered_df["Level of Care"].value_counts()
-    st.bar_chart(level_counts)
+
+    level_counts = df["Level of Care"].value_counts().reset_index()
+    level_counts.columns = ["Level of Care", "Referrals"]
+
+    level_counts["Color"] = level_counts["Level of Care"].apply(
+        lambda level: "Selected" if level == selected_level else "Other"
+    )
+
+    chart = alt.Chart(level_counts).mark_bar().encode(
+        x=alt.X("Level of Care:N", title="Level of Care"),
+        y=alt.Y("Referrals:Q", title="Total Referrals"),
+        color=alt.Color(
+            "Color:N",
+            scale=alt.Scale(
+                domain=["Selected", "Other"],
+                range=["#FF9F43", "#7EC8F8"]
+            ),
+            legend=None
+        )
+    )
+
+    st.altair_chart(chart, use_container_width=True)
+
     

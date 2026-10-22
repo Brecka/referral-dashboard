@@ -6,8 +6,9 @@ st.set_page_config(layout="wide")
 st.title("Referral Dashboard")
 
 df = pd.read_excel(
-    r"C:\Users\Sarbreck.Brown\Downloads\Dashboard.xlsx",
+    "referral-dashboard/Dashboard.xlsx",
     sheet_name="Referral_Clean"
+
 )
 
 levels = ["All"] + sorted(df["Level of Care"].dropna().unique().tolist())

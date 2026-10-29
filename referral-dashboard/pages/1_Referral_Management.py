@@ -72,5 +72,5 @@ try:
     df = pd.DataFrame(records, columns=columns)
     st.dataframe(df, use_container_width=True, hide_index=True)
 
-except psycopg.Error:
-    st.error("Could not load saved referrals.")
+except psycopg.Error as e:
+    st.error(f"Database error: {e}")

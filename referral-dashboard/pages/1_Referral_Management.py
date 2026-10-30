@@ -87,23 +87,44 @@ import pandas as pd
 
 df = pd.DataFrame(records, columns=columns)
 
-if search_name:
-    df = df[
-        df["client_name"].str.contains(
-            search_name, case=False, na=False, regex=False
-        )
-    ]
 
-if search_level != "All":
-    df = df[df["level_of_care"] == search_level]
+try:
+    with psycopg.connect(
+        st.secrets["DATABASE_URL"],
+        connect_timeout=10
+    ) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT referral_id, client_name,
+                       level_of_care, status, date_created
+                FROM public.referrals
+                ORDER BY referral_id DESC
+                """
+            )
+            records = cur.fetchall()
+            columns = [column.name for column in cur.description]
 
-if search_status != "All":
-    df = df[df["status"] == search_status]
+    import pandas as pd
 
-st.write("Matching Referrals:", len(df))
+    df = pd.DataFrame(records, columns=columns)
 
-st.dataframe(df, use_container_width=True, hide_index=True)
+    if search_name:
+        df = df[
+            df["client_name"].str.contains(
+                search_name, case=False, na=False, regex=False
+            )
+        ]
 
+    if search_level != "All":
+        df = df[df["level_of_care"] == search_level]
+
+    if search_status != "All":
+        df = df[df["status"] == search_status]
+
+    st.write("Matching Referrals:", len(df))
+
+    st.dataframe(df, use_container_width=True, hide_index=True)
 
 except psycopg.Error as e:
     st.error(f"Database error: {e}")

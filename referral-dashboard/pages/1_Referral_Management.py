@@ -17,7 +17,7 @@ with st.form("referral_form"):
 
     status = st.selectbox(
         "Status",
-        ["Pending", "Approved", "Denied"]
+        ["Pending", "Approved", "Denied", "Waitlisted"]
     )
 
     submitted = st.form_submit_button("Save Referral")
@@ -60,7 +60,7 @@ search_level = st.selectbox(
 
 search_status = st.selectbox(
     "Filter by Status",
-    ["All", "Pending", "Approved", "Denied"]
+    ["All", "Pending", "Approved", "Denied","Waitlisted"]
 )
 
 
@@ -116,7 +116,7 @@ referral_id = st.number_input(
 
 new_status = st.selectbox(
     "New Status",
-    ["Pending", "Approved", "Denied"]
+    ["Pending", "Approved", "Denied","Waitlisted"]
 )
 
 if st.button("Update Status"):

@@ -147,10 +147,7 @@ if st.button("Update Status"):
 
 
 
-new_status = st.selectbox(
-    "New Status",
-    ["Pending", "Approved", "Denied"]
-)
+
 
 if st.button("Update Status"):
     try:

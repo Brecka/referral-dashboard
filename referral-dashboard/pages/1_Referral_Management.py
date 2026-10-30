@@ -144,13 +144,3 @@ if st.button("Update Status"):
 
     except psycopg.Error as e:
         st.error(f"Database error: {e}")
-
-
-
-
-
-
-
-    except psycopg.Error as e:
-        st.error(f"Database error: {e}")
-

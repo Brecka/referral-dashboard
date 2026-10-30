@@ -83,28 +83,6 @@ try:
             records = cur.fetchall()
             columns = [column.name for column in cur.description]
 
-import pandas as pd
-
-    df = pd.DataFrame(records, columns=columns)
-
-
-try:
-    with psycopg.connect(
-        st.secrets["DATABASE_URL"],
-        connect_timeout=10
-    ) as conn:
-        with conn.cursor() as cur:
-            cur.execute(
-                """
-                SELECT referral_id, client_name,
-                       level_of_care, status, date_created
-                FROM public.referrals
-                ORDER BY referral_id DESC
-                """
-            )
-            records = cur.fetchall()
-            columns = [column.name for column in cur.description]
-
     import pandas as pd
 
     df = pd.DataFrame(records, columns=columns)

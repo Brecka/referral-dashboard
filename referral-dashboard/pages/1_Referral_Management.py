@@ -83,7 +83,7 @@ try:
             records = cur.fetchall()
             columns = [column.name for column in cur.description]
 
-    import pandas as pd
+import pandas as pd
 
 df = pd.DataFrame(records, columns=columns)
 

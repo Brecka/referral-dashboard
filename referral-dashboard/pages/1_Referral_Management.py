@@ -145,13 +145,7 @@ if st.button("Update Status"):
     except psycopg.Error as e:
         st.error(f"Database error: {e}")
 
-st.subheader("Update Referral Status")
 
-referral_id = st.number_input(
-    "Referral ID",
-    min_value=1,
-    step=1
-)
 
 new_status = st.selectbox(
     "New Status",

@@ -84,8 +84,26 @@ try:
             columns = [column.name for column in cur.description]
 
     import pandas as pd
-    df = pd.DataFrame(records, columns=columns)
-    st.dataframe(df, use_container_width=True, hide_index=True)
+
+df = pd.DataFrame(records, columns=columns)
+
+if search_name:
+    df = df[
+        df["client_name"].str.contains(
+            search_name, case=False, na=False, regex=False
+        )
+    ]
+
+if search_level != "All":
+    df = df[df["level_of_care"] == search_level]
+
+if search_status != "All":
+    df = df[df["status"] == search_status]
+
+st.write("Matching Referrals:", len(df))
+
+st.dataframe(df, use_container_width=True, hide_index=True)
+
 
 except psycopg.Error as e:
     st.error(f"Database error: {e}")

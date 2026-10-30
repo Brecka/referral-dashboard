@@ -51,6 +51,21 @@ if submitted:
 
 st.subheader("Saved Referrals")
 
+st.subheader("Search Referrals")
+
+search_name = st.text_input("Search by Client Name")
+
+search_level = st.selectbox(
+    "Filter by Level of Care",
+    ["All", "ASAM 3.1", "ASAM 3.5", "ASAM 3.7", "ASAM 4.0"]
+)
+
+search_status = st.selectbox(
+    "Filter by Status",
+    ["All", "Pending", "Approved", "Denied"]
+)
+
+
 try:
     with psycopg.connect(
         st.secrets["DATABASE_URL"],

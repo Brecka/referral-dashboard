@@ -104,3 +104,83 @@ try:
 
 except psycopg.Error as e:
     st.error(f"Database error: {e}")
+
+
+st.subheader("Update Referral Status")
+
+referral_id = st.number_input(
+    "Referral ID",
+    min_value=1,
+    step=1
+)
+
+new_status = st.selectbox(
+    "New Status",
+    ["Pending", "Approved", "Denied"]
+)
+
+if st.button("Update Status"):
+    try:
+        with psycopg.connect(
+            st.secrets["DATABASE_URL"],
+            connect_timeout=10
+        ) as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    UPDATE public.referrals
+                    SET status = %s
+                    WHERE referral_id = %s
+                    """,
+                    (new_status, referral_id)
+                )
+                updated_rows = cur.rowcount
+
+        if updated_rows:
+            st.success("Referral status updated!")
+            st.rerun()
+        else:
+            st.warning("No referral found with that ID.")
+
+    except psycopg.Error as e:
+        st.error(f"Database error: {e}")
+
+st.subheader("Update Referral Status")
+
+referral_id = st.number_input(
+    "Referral ID",
+    min_value=1,
+    step=1
+)
+
+new_status = st.selectbox(
+    "New Status",
+    ["Pending", "Approved", "Denied"]
+)
+
+if st.button("Update Status"):
+    try:
+        with psycopg.connect(
+            st.secrets["DATABASE_URL"],
+            connect_timeout=10
+        ) as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    UPDATE public.referrals
+                    SET status = %s
+                    WHERE referral_id = %s
+                    """,
+                    (new_status, referral_id)
+                )
+                updated_rows = cur.rowcount
+
+        if updated_rows:
+            st.success("Referral status updated!")
+            st.rerun()
+        else:
+            st.warning("No referral found with that ID.")
+
+    except psycopg.Error as e:
+        st.error(f"Database error: {e}")
+

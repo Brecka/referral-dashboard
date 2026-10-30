@@ -49,8 +49,6 @@ if submitted:
                 "Please check the database connection."
             )
 
-st.subheader("Saved Referrals")
-
 st.subheader("Search Referrals")
 
 search_name = st.text_input("Search by Client Name")
